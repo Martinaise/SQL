@@ -5,38 +5,86 @@ sudo find / -name "*sql*"\n
 
 -- Exo 1 Nom et année de naissance des artistes nés avant 1950.  
 SELECT nom, annéeNaiss
-FROM artiste WHERE annéeNaiss< 1950;
+FROM artiste
+ WHERE annéeNaiss< 1950;
 
 -- Exo 2 Titre de tous les drames. 
-SELECT titre FROM film WHERE genre = 'Drame';
+SELECT titre FROM film
+ WHERE genre = 'Drame';
 
 -- Exo 3 Quels rôles a joué Bruce Willis. 
 SELECT  nomRôle 
 FROM role r,artiste a 
-WHERE a.idArtiste = r.idActeur AND a.nom="Willis" AND a.prénom="Bruce";
+WHERE a.idArtiste = r.idActeur 
+AND a.nom="Willis" 
+AND a.prénom="Bruce";
 
 -- Films artistes roles notes
 
 -- Exo 4 Qui est le réalisateur de Memento. 
-
+SELECT artiste.nom,artiste.prénom  
+FROM artiste,film  
+WHERE  film.idRéalisateur = artiste.idArtiste
+ AND film.titre="Momento"
 
 -- Exo 5 Quelles sont les notes obtenues par le film Fargo 
+SELECT  note
+ FROM notation, film 
+ WHERE film.idFilm= notation.idFilm 
+ AND film.titre="Fargo"
 
--- Exo 6 Qui a joué le rôle de Chewbacca?  
+-- Exo 6 Qui a joué le rôle de Chewbacca?
+SELECT  nom,prénom 
+FROM artiste,role 
+WHERE  artiste.idArtiste = role.idActeur 
+AND nomRôle="Chewbacca"
 
 -- Exo 7 Dans quels films Bruce Willis a-t-il joué le rôle de John McClane? 
+SELECT  film.titre 
+FROM film , role, artiste
+ WHERE role.idFilm =film.idFilm
+ AND role.nomRôle="John McClane"
+ AND role.idActeur=artiste.idArtiste 
+ AND artiste.nom="Willis" 
+ AND artiste.prénom="Bruce";
+
 
 -- Exo 8 Nom des acteurs de 'Sueurs froides' 
+SELECT artiste.nom,artiste.prénom 
+FROM artiste,film
+WHERE artiste.idArtiste=film.idRéalisateur  
+ AND film.titre="Sueurs froides";
 
--- Exo 9 Quelles sont les films notés par l'internaute Prénom 0 Nom0 
+
+-- Exo 9 Quelles sont les films notés par l'internaute Prénom0 Nom0 
+SELECT titre FROM film,notation,internaute
+WHERE film.idFilm=notation.idFilm
+AND internaute.nom="Nom0"
+AND notation.email=internaute.email
+AND internaute.prénom="Prénom0";
+
 
 -- Exo 10 Films dont le réalisateur est Tim Burton, et l’un des acteurs
 -- Johnny Depp. 
+SELECT titre 
+FROM film,artiste
+WHERE film.idRéalisateur=artiste.idArtiste
+AND artiste.nom ="Depp"
+AND artiste.prénom ="Johnny"
+
+AND artiste.nom ="Tim"
+AND artiste.prénom ="Burton";
+pas encore finit la requette 10
 
 -- Exo 11 Titre des films dans lesquels a joué ́Woody Allen. Donner aussi
 -- le rôle.
+
 -- Exo 12 Quel metteur en scène a tourné dans ses propres films ? Donner
 -- le nom, le rôle et le titre des films.
+
+
+
+
 -- Exo 13 Titre des films de Quentin Tarantino dans lesquels il n’a pas
 -- joué
 -- Exo 14 Quel metteur en scène a tourné ́en tant qu’acteur ? Donner le
